@@ -1,0 +1,74 @@
+﻿@model IEnumerable<OOPTut.Core.Navbar.NavBarMenuItem>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Order)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Url)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OpenInSamePage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Icon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsAnonym)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Url)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpenInSamePage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Icon)
+                @if (!string.IsNullOrEmpty(item.Icon))
+                {
+                    @Html.Raw(" => ") <span class="fa @item.Icon"></span>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Roles)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAnonym)
+            </td>
+            <td>
+                <a asp-action="Update" class="btn btn-sm btn-outline-primary mr-1" asp-route-id="@item.Id"><span class="fa fa-edit"></span></a>
+                <a asp-action="Delete" class="btn btn-sm btn-outline-danger" asp-route-id="@item.Id"><span class="fa fa-trash"></span></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

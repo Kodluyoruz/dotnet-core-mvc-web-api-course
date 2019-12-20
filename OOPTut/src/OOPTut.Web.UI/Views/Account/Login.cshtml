@@ -1,0 +1,37 @@
+﻿@model OOPTut.Web.UI.Models.AccountViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div id="login">
+    <h3 class="text-center text-white pt-5">Giriş Ekranı</h3>
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                    <form asp-action="Login" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <h3 class="text-center text-info">Login</h3>
+                        <div class="form-group">
+                            <label asp-for="Username" class="text-info"></label><br>
+                            <input asp-for="Username" class="form-control">
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password" class="text-info"></label><br>
+                            <input asp-for="Password" class="form-control">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
+                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Giriş">
+                        </div>
+                        <div id="register-link" class="text-right">
+                            <a asp-action="Register" asp-controller="Account" class="text-info">Hesabım Yok! :(</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

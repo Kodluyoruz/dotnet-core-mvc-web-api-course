@@ -1,0 +1,128 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Test</title>
+    <!-- Bootstrap css-->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container mt-3">
+        <h1 class="text-primary">
+            Pazar Listesi
+        </h1>
+
+        <div class="row mt-3">
+            <div class="col" id="data-here">
+                Mesaj buraya
+            </div>
+        </div>
+
+        <h1 class="text-primary mt-3">
+            Merhaba Mars!!
+        </h1>
+        <div class="row mt-3">
+            <div class="col">
+                <input type="text" id="ogrenci-no" placeholder="ogrenci no girin" value="1432134213" />
+                <input type="text" id="text2" />
+                <button class="btn btn-primary" onclick="ogrenciNoEkle()">ekle</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col" id="text-here">
+                Mesaj buraya
+            </div>
+        </div>
+
+
+        <h2 class="text-primary">
+            JS ile hesapla
+        </h2>
+        <!--Hesaplama -->
+        <div class="row mt-3">
+            <div class="col">
+                <input type="number" id="number1" placeholder="birinci sayi" />
+                <input type="number" id="number2" placeholder="ikinci sayi" />
+                <button class="btn btn-primary" id="hesaplama-butonu">Çarp</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col" id="sonuc-div">
+                Sonuç buraya
+            </div>
+        </div>
+    </div>
+
+    <!-- jquery ve bootstrap js -->
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.get('/BazaarList/GetList', function (data, status) {
+                var _json = JSON.parse(data);
+                console.log(_json);
+                createTable(_json);
+            });
+            function createTable(json) {
+                var _html = '<table>';
+                for (var i = 0; i < json.length; i++) {
+                    _html += '<tr>';
+                    _html += '<td>' + json[i].Title + '</td>' + '<td>' + json[i].Description + '</td>'
+                    _html += '</tr>';
+                }
+                _html += '</table>';
+                $('#data-here').html(_html);
+            }
+
+        });
+        /* hesaplama */
+        function hesaplaCarp() {
+            var num1 = document.getElementById('number1').value;
+            var num2 = document.getElementById('number2').value;
+            console.log(num1 * num2);
+            var _target = document.getElementById('sonuc-div');
+            _target.innerHTML = num1 + ' x ' + num2 + ' = ' + num1 * num2;
+        }
+        /*jQuery ile hesaplama*/
+        $("#hesaplama-butonu").on('click', function () {
+            var num1 = $('#number1').val();
+            var num2 = $('#number2').val();
+            $('#sonuc-div').html(num1 + ' x ' + num2 + ' = ' + num1 * num2);
+        });
+        /*Javascript ile ogrenci noyu ekleme*/
+        function ogrenciNoEkle() {
+            //alert("fonksiyon calisti");
+            // Selectorler
+            var _el = document.getElementById("ogrenci-no");
+            //console.log(_el.placeholder);
+            var _target = document.getElementById("text-here");
+            //_target.innerHTML = _el.value;
+
+            var _inputs = document.getElementsByTagName("input");
+            console.log(_inputs);
+            console.log(_inputs.length);
+            // loops
+            var text = "";
+
+            for (var i = 0; i < _inputs.length; i++) {
+                console.log(_inputs[i].value);
+                text += _inputs[i].value + ', ';
+            }
+            _target.innerHTML = text;
+        }
+
+                            /*jQuery ile ogrenci noyu ekleme*/
+    </script>
+
+
+
+</body>
+</html>
